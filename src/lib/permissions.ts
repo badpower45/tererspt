@@ -1,0 +1,140 @@
+import type { UserRole, Permission } from '../types';
+
+// تعريف الصلاحيات لكل دور
+export const ROLE_PERMISSIONS: Record<UserRole, Permission> = {
+  super_admin: {
+    role: 'super_admin',
+    can_view_dashboard: true,
+    can_manage_products: true,
+    can_manage_inventory: true,
+    can_create_sales: true,
+    can_override_prices: true,
+    can_manage_partners: true,
+    can_manage_barter: true,
+    can_manage_installations: true,
+    can_manage_branches: true,
+    can_view_reports: true,
+    can_manage_users: true,
+    can_approve_shortages: true,
+    can_use_pos: true,
+  },
+  branch_manager: {
+    role: 'branch_manager',
+    can_view_dashboard: true,
+    can_manage_products: false,
+    can_manage_inventory: true,
+    can_create_sales: true,
+    can_override_prices: true,
+    can_manage_partners: false,
+    can_manage_barter: false,
+    can_manage_installations: true,
+    can_manage_branches: false,
+    can_view_reports: true,
+    can_manage_users: false,
+    can_approve_shortages: false,
+    can_use_pos: true,
+  },
+  sales_manager: {
+    role: 'sales_manager',
+    can_view_dashboard: true,
+    can_manage_products: true,
+    can_manage_inventory: false,
+    can_create_sales: true,
+    can_override_prices: true,
+    can_manage_partners: true,
+    can_manage_barter: true,
+    can_manage_installations: false,
+    can_manage_branches: false,
+    can_view_reports: true,
+    can_manage_users: false,
+    can_approve_shortages: false,
+    can_use_pos: true,
+  },
+  inventory_manager: {
+    role: 'inventory_manager',
+    can_view_dashboard: true,
+    can_manage_products: true,
+    can_manage_inventory: true,
+    can_create_sales: false,
+    can_override_prices: false,
+    can_manage_partners: false,
+    can_manage_barter: false,
+    can_manage_installations: false,
+    can_manage_branches: false,
+    can_view_reports: true,
+    can_manage_users: false,
+    can_approve_shortages: true,
+    can_use_pos: false,
+  },
+  cashier: {
+    role: 'cashier',
+    can_view_dashboard: false,
+    can_manage_products: false,
+    can_manage_inventory: false,
+    can_create_sales: true,
+    can_override_prices: false,
+    can_manage_partners: false,
+    can_manage_barter: false,
+    can_manage_installations: false,
+    can_manage_branches: false,
+    can_view_reports: false,
+    can_manage_users: false,
+    can_approve_shortages: false,
+    can_use_pos: true,
+  },
+  partner_manager: {
+    role: 'partner_manager',
+    can_view_dashboard: true,
+    can_manage_products: false,
+    can_manage_inventory: false,
+    can_create_sales: false,
+    can_override_prices: false,
+    can_manage_partners: true,
+    can_manage_barter: true,
+    can_manage_installations: false,
+    can_manage_branches: false,
+    can_view_reports: true,
+    can_manage_users: false,
+    can_approve_shortages: false,
+    can_use_pos: false,
+  },
+  installer: {
+    role: 'installer',
+    can_view_dashboard: false,
+    can_manage_products: false,
+    can_manage_inventory: false,
+    can_create_sales: false,
+    can_override_prices: false,
+    can_manage_partners: false,
+    can_manage_barter: false,
+    can_manage_installations: true,
+    can_manage_branches: false,
+    can_view_reports: false,
+    can_manage_users: false,
+    can_approve_shortages: false,
+    can_use_pos: false,
+  },
+};
+
+// Helper functions
+export const getPermissions = (role: UserRole): Permission => {
+  return ROLE_PERMISSIONS[role];
+};
+
+export const hasPermission = (
+  role: UserRole,
+  permission: keyof Omit<Permission, 'role'>
+): boolean => {
+  return ROLE_PERMISSIONS[role][permission];
+};
+
+// الأسماء بالعربية للأدوار
+export const ROLE_LABELS: Record<UserRole, string> = {
+  super_admin: 'مدير النظام',
+  branch_manager: 'مدير فرع',
+  sales_manager: 'مدير مبيعات',
+  inventory_manager: 'مدير مخزون',
+  cashier: 'كاشير',
+  partner_manager: 'مدير الشراكات',
+  installer: 'فني تركيب',
+};
